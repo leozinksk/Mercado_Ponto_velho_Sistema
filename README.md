@@ -8,7 +8,7 @@ Projeto Desenvolvido Durante as aulas de DS (Desenvolvimento De Sistemas) do 2º
 **Tema: Sistema de Supermercado**
 
  **Objetivos:**
- > Utilizar de ferramentas a quais foram ensinadas durante as aulas, para programar um sistema, a qual terá o > principal objetivo de Organizar e Gerenciar um Sistema de Um Supermercado
+ > Utilizar de ferramentas a quais foram ensinadas durante as aulas, para programar um sistema, a qual terá o  principal objetivo de Organizar e Gerenciar um Sistema de Um Supermercado
 
 **Tecnologias usadas:**
 > Linguagem de programação C, ligada a banco de dados (Mysql) e utilizando ferramentas de design para o visual  
