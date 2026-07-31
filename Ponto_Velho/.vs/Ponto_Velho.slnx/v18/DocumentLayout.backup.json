@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\DS\\2\u00BA Semestre\\Velho\\Mercado_Ponto_velho_Sistema\\Ponto_Velho\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{72E9A956-9D7A-4FF4-83E7-38DE2805EEFC}|Ponto_Velho\\Ponto_Velho.csproj|d:\\ds\\2\u00BA semestre\\velho\\mercado_ponto_velho_sistema\\ponto_velho\\ponto_velho\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{72E9A956-9D7A-4FF4-83E7-38DE2805EEFC}|Ponto_Velho\\Ponto_Velho.csproj|solutionrelative:ponto_velho\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\DS\\2\u00BA Semestre\\Velho\\Mercado_Ponto_velho_Sistema\\Ponto_Velho\\Ponto_Velho\\Form1.cs",
+              "RelativeDocumentMoniker": "Ponto_Velho\\Form1.cs",
+              "ToolTip": "D:\\DS\\2\u00BA Semestre\\Velho\\Mercado_Ponto_velho_Sistema\\Ponto_Velho\\Ponto_Velho\\Form1.cs [Design]",
+              "RelativeToolTip": "Ponto_Velho\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-31T14:52:38.526Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
