@@ -1,0 +1,49 @@
+Cliente: Acessa o sistema para consultar os produtos disponíveis no supermercado e utilizar o canal de atendimento para enviar dúvidas, sugestões ou reclamações.
+
+Caixa: Responsável por registrar a venda dos produtos no momento do pagamento, calcular o total da compra, receber o pagamento e emitir o comprovante para o cliente.
+
+Estoquista/Hortifruti: Usuário responsável pelo controle de mercadorias, realizando o cadastro de produtos, registro de entrada e saída de itens no estoque e consulta de saldos.
+
+Gerente: Possui acesso total ao sistema, sendo responsável por cadastrar e gerenciar funcionários, definir níveis de acesso e gerar relatórios de vendas e de estoque.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Caixa:
+Faz o login no sistema.
+Abre a tela de registro de vendas.
+Busca ou passa o código de cada produto que o cliente está comprando.
+O sistema calcula o valor total da compra.
+O Caixa seleciona a forma de pagamento e finaliza a venda.
+O sistema emite o comprovante para o cliente e diminui a quantidade dos produtos no estoque automaticamente.
+
+Estoquista: 
+Faz o login no sistema.
+Entra na tela de gestão de estoque.
+Seleciona o produto e digita a quantidade de novos itens que chegaram ao supermercado.
+O sistema salva a alteração e atualiza a quantidade total no estoque.
+
+Cliente:
+Acessa a tela de atendimento.
+Escreve sua mensagem com uma dúvida, sugestão ou reclamação.
+O sistema salva a mensagem para que a equipe do supermercado possa visualizar e responder.
+
+O Gerente
+Faz o login no sistema.
+Acessa a tela de cadastro de funcionários.
+Preenche os dados do novo funcionário e define o tipo de acesso que ele terá (Caixa, Estoquista, etc.).
+O sistema salva o novo usuário no banco de dados.
