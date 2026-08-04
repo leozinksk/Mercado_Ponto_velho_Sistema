@@ -16,8 +16,12 @@ Gerente: Possui acesso total ao sistema, sendo responsável por cadastrar e gere
 
 
 
-
-
+SAC: 
+Faz Login
+Abra a tela com escolhas 
+Gerar Troca Cupom 
+Consulta o status de uma compra
+Vê Reclamações de Clientes
 
 
 
@@ -41,7 +45,7 @@ Cliente:
 Acessa a tela de atendimento.
 Escreve sua mensagem com uma dúvida, sugestão ou reclamação.
 O sistema salva a mensagem para que a equipe do supermercado possa visualizar e responder.
-
+Podem se cadastrar no convenio
 O Gerente
 Faz o login no sistema.
 Acessa a tela de cadastro de funcionários.
