@@ -1,29 +1,26 @@
-##  Requisitos Funcionais
+Requisitos Funcionais:
 
-- Cadastro de usuários.
-- Sistema de login com autenticação.
-- Cadastro e gerenciamento de funcionários.
-- Cadastro de produtos no estoque.
+- Cadastro e gerenciamento de usuários e funcionários.
+- Tela de login com autenticação por usuário e senha.
+- Cadastro e atualização de produtos no estoque.
 - Registro de entrada de produtos no estoque.
 - Registro de saída de produtos do estoque.
-- Controle automático da quantidade de produtos em estoque.
 - Sistema de Caixa (PDV) para registro de vendas.
-- Emissão de comprovantes de venda.
-- Atualização automática do estoque após as vendas.
+- Seleção de forma de pagamento e emissão de comprovante.
+- Cadastro de clientes no programa de convênio.
 - Sistema de SAC (Serviço de Atendimento ao Cliente).
-- Consulta de produtos cadastrados.
-- Controle de níveis de acesso (Cliente, Caixa, Estoquista, Gerente e Administrador).
-- Geração de relatórios de estoque e vendas.
+- Consulta de produtos cadastrados e saldo do estoque.
+- Controle de níveis de acesso por perfil (Cliente, Caixa, Estoquista, SAC e Gerente).
+- Geração de relatórios de vendas e de estoque.
 
-##  Requisitos Não Funcionais
 
-- O sistema deve garantir a segurança dos dados dos usuários por meio de autenticação.
-- O tempo de resposta das operações deve ser inferior a 3 segundos.
-- O sistema deve utilizar o banco de dados MySQL para armazenamento das informações.
-- O sistema deve ser desenvolvido na linguagem C.
-- O sistema deve manter a integridade dos dados cadastrados.
-- O sistema deve permitir a recuperação de informações sem perda de dados.
-- O sistema deve possuir diferentes níveis de acesso conforme o cargo do usuário.
-- O código deve ser organizado e documentado para facilitar a manutenção.
-- O sistema deve apresentar mensagens de erro claras e objetivas ao usuário.
-- O sistema deve ser compatível com computadores que executem o sistema operacional Windows.
+Requisitos Não Funcionais:
+
+- Desenvolvido na linguagem C#
+- Uso do banco de dados MySQL para armazenar os dados.
+- Compatível com o sistema operacional Windows.
+- Tempo de resposta das operações inferior a 3 segundos.
+- Segurança no acesso com autenticação por perfil.
+- Atualização automática do estoque após cada venda.
+- Mensagens de erro claras e diretas para o usuário.
+- Código organizado e comentado para facilitar a manutenção.
