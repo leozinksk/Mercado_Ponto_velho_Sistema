@@ -11,7 +11,7 @@ Projeto Desenvolvido Durante as aulas de DS (Desenvolvimento De Sistemas) do 2º
  > Utilizar de ferramentas a quais foram ensinadas durante as aulas, para programar um sistema, a qual terá o  principal objetivo de Organizar e Gerenciar um Sistema de Um Supermercado
 
 **Tecnologias usadas:**
-> Linguagem de programação C, ligada a banco de dados (Mysql) e utilizando ferramentas de design para o visual  
+> Linguagem de programação C#, ligada a banco de dados (Mysql) e utilizando ferramentas de design para o visual  
 
 **Descrição:**
 > O Sistema terá diferentes tipos de acessos, como o de cliente, e por exemplo dos funcionários como caixa, e estoquista, além de uma gestão de estoque    
