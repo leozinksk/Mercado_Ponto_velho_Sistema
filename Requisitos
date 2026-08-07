@@ -16,10 +16,10 @@ Requisitos Funcionais:
 
 Requisitos Não Funcionais:
 
-- Desenvolvido na linguagem C#
+- Desenvolvido na linguagem C#.
 - Uso do banco de dados MySQL para armazenar os dados.
 - Compatível com o sistema operacional Windows.
-- Tempo de resposta das operações inferior a 3 segundos.
+- Tempo de resposta das operações inferior a 5 segundos.
 - Segurança no acesso com autenticação por perfil.
 - Atualização automática do estoque após cada venda.
 - Mensagens de erro claras e diretas para o usuário.
