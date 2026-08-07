@@ -1,53 +1,36 @@
-Cliente: Acessa o sistema para consultar os produtos disponíveis no supermercado e utilizar o canal de atendimento para enviar dúvidas, sugestões ou reclamações.
+Atores do Sistema:
 
-Caixa: Responsável por registrar a venda dos produtos no momento do pagamento, calcular o total da compra, receber o pagamento e emitir o comprovante para o cliente.
+Cliente: Acessa o sistema para consultar os produtos disponíveis, cadastrar-se no programa de convênio e enviar dúvidas, sugestões ou reclamações.
 
-Estoquista/Hortifruti: Usuário responsável pelo controle de mercadorias, realizando o cadastro de produtos, registro de entrada e saída de itens no estoque e consulta de saldos.
+Caixa: Responsável por registrar a venda dos produtos, selecionar a forma de pagamento e emitir o comprovante ao cliente.
 
-Gerente: Possui acesso total ao sistema, sendo responsável por cadastrar e gerenciar funcionários, definir níveis de acesso e gerar relatórios de vendas e de estoque.
+Estoquista: Responsável pelo controle de mercadorias, realizando o cadastro de produtos, registro de entrada e saída de itens no estoque e consulta de saldos.
 
+Gerente: Possui acesso total ao sistema, sendo responsável por cadastrar e gerenciar funcionários, definir níveis de acesso e acompanhar os relatórios de vendas e estoque.
 
-
-
-
-
+Atendente do SAC: Responsável por visualizar as mensagens dos clientes, consultar o status das compras, responder a chamados e gerar cupons de troca.
 
 
 
-
+Diagrama de Caso de Uso:
 
 SAC: 
-Faz Login
-Abra a tela com escolhas 
-Gerar Troca Cupom 
-Consulta o status de uma compra
-Vê Reclamações de Clientes
-
-
-
-
+Visualiza as reclamações e mensagens dos clientes.
+Consulta o status de compras realizadas.
+Gera cupons de troca ou desconto para clientes.
 
 Caixa:
-Faz o login no sistema.
-Abre a tela de registro de vendas.
-Busca ou passa o código de cada produto que o cliente está comprando.
-O sistema calcula o valor total da compra.
-O Caixa seleciona a forma de pagamento e finaliza a venda.
-O sistema emite o comprovante para o cliente e diminui a quantidade dos produtos no estoque automaticamente.
+Registra a venda dos produtos (inclui a leitura dos itens, cálculo do total, recebimento do pagamento e emissão do comprovante).
 
 Estoquista: 
-Faz o login no sistema.
-Entra na tela de gestão de estoque.
-Seleciona o produto e digita a quantidade de novos itens que chegaram ao supermercado.
-O sistema salva a alteração e atualiza a quantidade total no estoque.
+Dá entrada de novos produtos no estoque.
+Consulta o saldo dos produtos no estoque.
 
 Cliente:
-Acessa a tela de atendimento.
-Escreve sua mensagem com uma dúvida, sugestão ou reclamação.
-O sistema salva a mensagem para que a equipe do supermercado possa visualizar e responder.
-Podem se cadastrar no convenio
-O Gerente
-Faz o login no sistema.
-Acessa a tela de cadastro de funcionários.
-Preenche os dados do novo funcionário e define o tipo de acesso que ele terá (Caixa, Estoquista, etc.).
-O sistema salva o novo usuário no banco de dados.
+Cadastra no convênio.
+Envia mensagem com dúvida, sugestão ou reclamação.
+
+Gerente
+Cadastra novos funcionários e define seus níveis de acesso.
+Consulta relatórios de vendas e de estoque.
+Acessa e realiza todas as funções de Caixa, Estoquista e SAC no sistema.
