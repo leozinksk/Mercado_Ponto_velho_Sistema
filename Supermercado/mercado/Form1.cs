@@ -1,0 +1,128 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient; // Necessário para conectar ao MySQL
+
+namespace mercado
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // String de conexão configurada para o seu banco 'mercadoleoisa' sem senha
+            string conexaoString = "Server=localhost;Database=mercadoleoisa;Uid=root;Pwd=";
+
+            // Pega o texto digitado nas caixas de texto
+            string usuario = textBox1.Text.Trim();
+            string senha = textBox2.Text.Trim();
+
+            // Validação simples para ver se os campos não estão vazios
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha))
+            {
+                MessageBox.Show("Por favor, preencha o usuário e a senha.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (MySqlConnection conexao = new MySqlConnection(conexaoString))
+            {
+                try
+                {
+                    conexao.Open();
+
+                    // Consulta para buscar o tipo de funcionário na tabela cadastrofunc
+                    string query = "SELECT tipofunc FROM cadastrofunc WHERE usuariofunc = @usuario AND senha = @senha";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conexao))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario", usuario);
+                        cmd.Parameters.AddWithValue("@senha", senha);
+
+                        object resultado = cmd.ExecuteScalar();
+
+                        if (resultado != null)
+                        {
+                            string tipoFuncionario = resultado.ToString();
+
+                            MessageBox.Show("Login realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Redireciona dependendo do cargo cadastrado no banco (ex: GERENTE)
+                            if (tipoFuncionario == "GERENTE")
+                            {
+                                // Descomente e ajuste abaixo quando criar a tela do gerente:
+                                FormGerente tela = new FormGerente();
+                                tela.Show();
+                                this.Hide();
+                            }
+                            else if (tipoFuncionario == "CAIXA")
+                            {
+                                // Descomente e ajuste abaixo para funcionários comuns:
+                                FormCaixa tela = new FormCaixa();
+                                tela.Show();
+                                this.Hide();
+                            }
+                            else if (tipoFuncionario.IndexOf("HORT", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                     tipoFuncionario.IndexOf("HURT", StringComparison.OrdinalIgnoreCase) >= 0)
+                            {
+                                // Redireciona para a tela do Hortifruti (aceita variações comuns de escrita)
+                                FormHort tela = new FormHort();
+                                tela.Show();
+                                this.Hide();
+                            }
+                            else if (tipoFuncionario == "REPOSITOR")
+                            {
+                                // Crie um formulário chamado 'FormRepositor' e descomente abaixo:
+                                 FormRepositor telaRepositor = new FormRepositor();
+                                telaRepositor.Show();
+                                this.Hide();
+                                
+                            }
+                            else if (tipoFuncionario == "SAC")
+                            {
+                                // Crie um formulário chamado 'FormSac' e descomente abaixo:
+                                FormSac telaSac = new FormSac();
+                                 telaSac.Show();
+                                 this.Hide();
+                               
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Usuário ou senha incorretos.", "Erro de Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao conectar ao banco de dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+        }
+    }
+}

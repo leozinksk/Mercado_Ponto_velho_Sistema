@@ -1,0 +1,154 @@
+﻿using System;
+using System.Data;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace mercado.Data
+{
+    // Serviço de acesso ao estoque. Configure ConnectionString antes de usar.
+    public class InventoryService
+    {
+        // Defina a string de conexão do MySQL aqui antes de usar (ex: "Server=localhost;Database=...;Uid=...;Pwd=...")
+        public string ConnectionString { get; set; } = string.Empty;
+
+        public InventoryService() { }
+
+        private bool HasConnection()
+        {
+            if (string.IsNullOrWhiteSpace(ConnectionString))
+            {
+                MessageBox.Show("Defina InventoryService.ConnectionString com sua string de conexão antes de usar.", "Configuração necessária", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        // Retorna todos os produtos em um DataTable para fácil binding em DataGridView
+        public DataTable GetAllProducts()
+        {
+            DataTable dt = new DataTable();
+            if (!HasConnection()) return dt;
+
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    // Ajuste o nome da tabela/colunas conforme seu esquema
+                    cmd.CommandText = "SELECT id, nome, descricao, preco, quantidade FROM products";
+                    using (var adapter = new MySqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao consultar produtos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return dt;
+        }
+
+        // Insere novo produto ou atualiza se Id > 0
+        public bool AddOrUpdateProduct(Product p)
+        {
+            if (!HasConnection()) return false;
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    if (p.Id <= 0)
+                    {
+                        cmd.CommandText = "INSERT INTO products (nome, descricao, preco, quantidade) VALUES (@nome, @descricao, @preco, @quantidade)";
+                    }
+                    else
+                    {
+                        cmd.CommandText = "UPDATE products SET nome=@nome, descricao=@descricao, preco=@preco, quantidade=@quantidade WHERE id=@id";
+                        cmd.Parameters.AddWithValue("@id", p.Id);
+                    }
+
+                    cmd.Parameters.AddWithValue("@nome", p.Nome);
+                    cmd.Parameters.AddWithValue("@descricao", p.Descricao);
+                    cmd.Parameters.AddWithValue("@preco", p.Preco);
+                    cmd.Parameters.AddWithValue("@quantidade", p.Quantidade);
+
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao salvar produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        // Registra entrada de estoque: aumenta a quantidade do produto
+        public bool RegisterEntry(int productId, int quantity, string nota = "")
+        {
+            if (!HasConnection()) return false;
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    // Atualiza a quantidade do produto. Ajuste conforme o esquema de tabelas
+                    cmd.CommandText = "UPDATE products SET quantidade = quantidade + @q WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@q", quantity);
+                    cmd.Parameters.AddWithValue("@id", productId);
+                    int rows = cmd.ExecuteNonQuery();
+
+                    // Opcional: gravar um histórico em tabela 'stock_entries' se desejar
+                    return rows > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao registrar entrada: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        // Registra saída de estoque: reduz a quantidade do produto
+        public bool RegisterExit(int productId, int quantity, string nota = "")
+        {
+            if (!HasConnection()) return false;
+            try
+            {
+                using (var conn = new MySqlConnection(ConnectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    // Verifica se existe estoque suficiente
+                    cmd.CommandText = "SELECT quantidade FROM products WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@id", productId);
+                    object obj = cmd.ExecuteScalar();
+                    if (obj == null) return false;
+                    int current = Convert.ToInt32(obj);
+                    if (current < quantity)
+                    {
+                        MessageBox.Show("Estoque insuficiente.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "UPDATE products SET quantidade = quantidade - @q WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@q", quantity);
+                    cmd.Parameters.AddWithValue("@id", productId);
+                    int rows = cmd.ExecuteNonQuery();
+                    return rows > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao registrar saída: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+    }
+}

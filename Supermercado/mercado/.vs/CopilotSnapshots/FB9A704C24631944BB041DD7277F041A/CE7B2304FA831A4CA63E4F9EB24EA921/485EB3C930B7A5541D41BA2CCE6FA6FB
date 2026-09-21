@@ -1,0 +1,77 @@
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+using mercado.Data;
+using System.Data;
+
+namespace mercado.Forms
+{
+    public class FormSaida : Form
+    {
+        private InventoryService service;
+        private ComboBox cbProdutos;
+        private NumericUpDown nudQuantidade;
+        private Button btnRegistrar, btnRefresh;
+
+        public FormSaida()
+        {
+            this.Text = "Registrar Saída de Estoque";
+            this.Size = new Size(400, 200);
+
+            service = new InventoryService();
+            // service.ConnectionString = "...";
+
+            InitializeComponents();
+            Load += (s, e) => LoadProducts();
+        }
+
+        private void InitializeComponents()
+        {
+            Label lblProduto = new Label { Text = "Produto", Location = new Point(10, 20), AutoSize = true };
+            cbProdutos = new ComboBox { Location = new Point(90, 20), Width = 250, DropDownStyle = ComboBoxStyle.DropDownList };
+
+            Label lblQtd = new Label { Text = "Quantidade", Location = new Point(10, 60), AutoSize = true };
+            nudQuantidade = new NumericUpDown { Location = new Point(90, 60), Width = 120, Minimum = 1, Maximum = 100000, Value = 1 };
+
+            btnRegistrar = new Button { Text = "Registrar Saída", Location = new Point(90, 100) };
+            btnRegistrar.Click += BtnRegistrar_Click;
+
+            btnRefresh = new Button { Text = "Atualizar Lista", Location = new Point(230, 100) };
+            btnRefresh.Click += (s, e) => LoadProducts();
+
+            this.Controls.AddRange(new Control[] { lblProduto, cbProdutos, lblQtd, nudQuantidade, btnRegistrar, btnRefresh });
+        }
+
+        private void LoadProducts()
+        {
+            cbProdutos.Items.Clear();
+            DataTable dt = service.GetAllProducts();
+            foreach (DataRow r in dt.Rows)
+            {
+                cbProdutos.Items.Add(new ComboboxItem { Text = r["nome"].ToString() + " (Qtd=" + r["quantidade"].ToString() + ")", Value = r["id"] });
+            }
+            if (cbProdutos.Items.Count > 0) cbProdutos.SelectedIndex = 0;
+        }
+
+        private void BtnRegistrar_Click(object sender, EventArgs e)
+        {
+            if (cbProdutos.SelectedItem == null) return;
+            var item = (ComboboxItem)cbProdutos.SelectedItem;
+            int productId = Convert.ToInt32(item.Value);
+            int q = (int)nudQuantidade.Value;
+            bool ok = service.RegisterExit(productId, q);
+            if (ok)
+            {
+                MessageBox.Show("Saída registrada com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadProducts();
+            }
+        }
+
+        private class ComboboxItem
+        {
+            public string Text { get; set; }
+            public object Value { get; set; }
+            public override string ToString() => Text;
+        }
+    }
+}

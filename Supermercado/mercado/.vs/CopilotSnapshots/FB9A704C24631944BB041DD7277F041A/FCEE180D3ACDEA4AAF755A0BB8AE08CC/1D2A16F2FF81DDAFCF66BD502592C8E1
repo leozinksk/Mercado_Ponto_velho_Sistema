@@ -1,0 +1,191 @@
+﻿namespace mercado
+{
+    partial class FormCaixa
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.TextBox txtCodigo;
+        private System.Windows.Forms.TextBox txtQuantidade;
+        private System.Windows.Forms.Button btnAdicionar;
+        private System.Windows.Forms.DataGridView dgvItens;
+        private System.Windows.Forms.Button btnRemover;
+        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.ComboBox cbFormaPagamento;
+        private System.Windows.Forms.TextBox txtCpfConvenio;
+        private System.Windows.Forms.TextBox txtSenhaConvenio;
+        private System.Windows.Forms.Button btnFinalizar;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lblStatus;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.txtCodigo = new System.Windows.Forms.TextBox();
+            this.txtQuantidade = new System.Windows.Forms.TextBox();
+            this.btnAdicionar = new System.Windows.Forms.Button();
+            this.dgvItens = new System.Windows.Forms.DataGridView();
+            this.btnRemover = new System.Windows.Forms.Button();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.cbFormaPagamento = new System.Windows.Forms.ComboBox();
+            this.txtCpfConvenio = new System.Windows.Forms.TextBox();
+            this.txtSenhaConvenio = new System.Windows.Forms.TextBox();
+            this.btnFinalizar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvItens)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // txtCodigo
+            // 
+            this.txtCodigo.Location = new System.Drawing.Point(12, 12);
+            this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.Size = new System.Drawing.Size(240, 20);
+            this.txtCodigo.TabIndex = 0;
+            // 
+            // txtQuantidade
+            // 
+            this.txtQuantidade.Location = new System.Drawing.Point(260, 12);
+            this.txtQuantidade.Name = "txtQuantidade";
+            this.txtQuantidade.Size = new System.Drawing.Size(60, 20);
+            this.txtQuantidade.TabIndex = 1;
+            this.txtQuantidade.Text = "1";
+            // 
+            // btnAdicionar
+            // 
+            this.btnAdicionar.Location = new System.Drawing.Point(330, 8);
+            this.btnAdicionar.Name = "btnAdicionar";
+            this.btnAdicionar.Size = new System.Drawing.Size(100, 26);
+            this.btnAdicionar.TabIndex = 2;
+            this.btnAdicionar.Text = "Adicionar Item";
+            this.btnAdicionar.UseVisualStyleBackColor = true;
+            this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
+            // 
+            // dgvItens
+            // 
+            this.dgvItens.AllowUserToAddRows = false;
+            this.dgvItens.AllowUserToDeleteRows = false;
+            this.dgvItens.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvItens.Location = new System.Drawing.Point(12, 50);
+            this.dgvItens.Name = "dgvItens";
+            this.dgvItens.Size = new System.Drawing.Size(760, 300);
+            this.dgvItens.TabIndex = 3;
+            // 
+            // btnRemover
+            // 
+            this.btnRemover.Location = new System.Drawing.Point(12, 360);
+            this.btnRemover.Name = "btnRemover";
+            this.btnRemover.Size = new System.Drawing.Size(120, 30);
+            this.btnRemover.TabIndex = 4;
+            this.btnRemover.Text = "Remover Item";
+            this.btnRemover.UseVisualStyleBackColor = true;
+            this.btnRemover.Click += new System.EventHandler(this.btnRemover_Click);
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(480, 360);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(292, 50);
+            this.lblTotal.TabIndex = 5;
+            this.lblTotal.Text = "R$ 0,00";
+            this.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cbFormaPagamento
+            // 
+            this.cbFormaPagamento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFormaPagamento.Location = new System.Drawing.Point(12, 400);
+            this.cbFormaPagamento.Name = "cbFormaPagamento";
+            this.cbFormaPagamento.Size = new System.Drawing.Size(180, 21);
+            this.cbFormaPagamento.TabIndex = 6;
+            // 
+            // txtCpfConvenio
+            // 
+            this.txtCpfConvenio.Location = new System.Drawing.Point(200, 400);
+            this.txtCpfConvenio.Name = "txtCpfConvenio";
+            this.txtCpfConvenio.Size = new System.Drawing.Size(140, 20);
+            this.txtCpfConvenio.TabIndex = 7;
+            this.txtCpfConvenio.PlaceholderText = "CPF (Convênio)";
+            // 
+            // txtSenhaConvenio
+            // 
+            this.txtSenhaConvenio.Location = new System.Drawing.Point(350, 400);
+            this.txtSenhaConvenio.Name = "txtSenhaConvenio";
+            this.txtSenhaConvenio.Size = new System.Drawing.Size(120, 20);
+            this.txtSenhaConvenio.TabIndex = 8;
+            this.txtSenhaConvenio.UseSystemPasswordChar = true;
+            // 
+            // btnFinalizar
+            // 
+            this.btnFinalizar.Location = new System.Drawing.Point(480, 420);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Size = new System.Drawing.Size(140, 30);
+            this.btnFinalizar.TabIndex = 9;
+            this.btnFinalizar.Text = "Finalizar Venda";
+            this.btnFinalizar.UseVisualStyleBackColor = true;
+            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(630, 420);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(140, 30);
+            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.Text = "Cancelar Venda";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblStatus.Location = new System.Drawing.Point(12, 430);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(440, 20);
+            this.lblStatus.TabIndex = 11;
+            // 
+            // FormCaixa
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.txtCodigo);
+            this.Controls.Add(this.txtQuantidade);
+            this.Controls.Add(this.btnAdicionar);
+            this.Controls.Add(this.dgvItens);
+            this.Controls.Add(this.btnRemover);
+            this.Controls.Add(this.lblTotal);
+            this.Controls.Add(this.cbFormaPagamento);
+            this.Controls.Add(this.txtCpfConvenio);
+            this.Controls.Add(this.txtSenhaConvenio);
+            this.Controls.Add(this.btnFinalizar);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.lblStatus);
+            this.Name = "FormCaixa";
+            this.Text = "Caixa (PDV)";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvItens)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+        }
+
+        #endregion
+    }
+}

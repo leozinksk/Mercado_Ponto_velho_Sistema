@@ -1,0 +1,197 @@
+﻿using System;
+using System.Data;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace mercado
+{
+    public partial class FormSac : Form
+    {
+        // Ligação à base de dados MySQL local
+        private readonly string connectionString = "Server=localhost;Database=mercadoleoisa;Uid=root;Pwd=;";
+
+        public FormSac()
+        {
+            InitializeComponent();
+
+            // Garante a ligação dos cliques nos botões por código
+            button1.Click += new EventHandler(button1_Click);
+            button2.Click += new EventHandler(button2_Click);
+            button3.Click += new EventHandler(button3_Click);
+        }
+
+        private void FormSac_Load(object sender, EventArgs e)
+        {
+            RestaurarTextosPadrao();
+        }
+
+        // ========================================================
+        // RECOLOCA OS TEXTOS PADRÃO DENTRO DAS CAIXAS
+        // ========================================================
+        private void RestaurarTextosPadrao()
+        {
+            textBox2.Text = "Nome do Cliente";
+            textBox3.Text = "CPF";
+            textBox4.Text = "Senha do Convênio";
+            textBox1.Text = "Telefone";
+            textBox5.Text = "Convênio";
+            textBox6.Text = "Limite de Crédito (R$)";
+
+            // Remove o caractere de senha enquanto estiver com o texto explicativo
+            textBox4.PasswordChar = '\0';
+        }
+
+        // ==========================================
+        // BOTÃO CADASTRAR CLIENTE (button1)
+        // ==========================================
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string nome = textBox2.Text.Trim();
+            string cpf = textBox3.Text.Trim().Replace(".", "").Replace("-", "").Replace(" ", "");
+            string senha = textBox4.Text.Trim();
+            string telefone = textBox1.Text.Trim();
+            string convenio = textBox5.Text.Trim();
+
+            // Valida se o usuário não deixou os textos padrão
+            if (string.IsNullOrWhiteSpace(nome) || nome == "Nome do Cliente" ||
+                string.IsNullOrWhiteSpace(cpf) || cpf == "CPF" ||
+                string.IsNullOrWhiteSpace(senha) || senha == "Senha do Convênio" ||
+                string.IsNullOrWhiteSpace(convenio) || convenio == "Convênio" ||
+                string.IsNullOrWhiteSpace(textBox6.Text) || textBox6.Text == "Limite de Crédito (R$)")
+            {
+                MessageBox.Show("Por favor, preencha todos os campos obrigatórios!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!long.TryParse(cpf, out _))
+            {
+                MessageBox.Show("O CPF deve conter apenas números.", "CPF Inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!decimal.TryParse(textBox6.Text.Trim().Replace(".", ","), out decimal limite) || limite <= 0)
+            {
+                MessageBox.Show("Defina um limite numérico superior a zero.", "Limite Inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string query = "INSERT INTO clientes (nome, cpf, senha, telefone, convenio, limite_credito, saldo_devedor) " +
+                           "VALUES (@nome, @cpf, @senha, @telefone, @convenio, @limite, 0.00)";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@nome", nome);
+                        cmd.Parameters.AddWithValue("@cpf", cpf);
+                        cmd.Parameters.AddWithValue("@senha", senha);
+                        cmd.Parameters.AddWithValue("@telefone", (telefone == "Telefone") ? "" : telefone);
+                        cmd.Parameters.AddWithValue("@convenio", convenio);
+                        cmd.Parameters.AddWithValue("@limite", limite);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                MessageBox.Show($"Cliente de convênio cadastrado com sucesso!\nLimite concedido: R$ {limite:N2}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Volta os campos para os textos iniciais
+                RestaurarTextosPadrao();
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    MessageBox.Show("Já existe um cliente cadastrado com este CPF!", "CPF Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show("Erro de banco de dados: " + ex.Message, "Erro MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ==========================================
+        // BOTÃO CONSULTAR POR CPF (button2)
+        // ==========================================
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string cpf = textBox3.Text.Trim().Replace(".", "").Replace("-", "").Replace(" ", "");
+
+            if (string.IsNullOrWhiteSpace(cpf) || cpf == "CPF")
+            {
+                MessageBox.Show("Digite o CPF no campo correspondente para consultar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string query = "SELECT id, nome, cpf, telefone, convenio, limite_credito, saldo_devedor, ativo FROM clientes WHERE cpf = @cpf";
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@cpf", cpf);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                textBox2.Text = reader["nome"].ToString();
+                                textBox3.Text = reader["cpf"].ToString();
+                                textBox4.Text = "Senha do Convênio";
+                                textBox4.PasswordChar = '\0';
+                                textBox1.Text = reader["telefone"].ToString();
+                                textBox5.Text = reader["convenio"].ToString();
+
+                                decimal limite = Convert.ToDecimal(reader["limite_credito"]);
+                                decimal divida = Convert.ToDecimal(reader["saldo_devedor"]);
+                                decimal disponivel = limite - divida;
+
+                                textBox6.Text = limite.ToString("N2");
+
+                                string situacao = Convert.ToInt32(reader["ativo"]) == 1 ? "Ativo" : "Bloqueado";
+
+                                string relatorio = "=== FICHA DO CLIENTE ===\n" +
+                                                   "Nome: " + reader["nome"] + "\n" +
+                                                   "Convênio: " + reader["convenio"] + "\n" +
+                                                   "Status: " + situacao + "\n\n" +
+                                                   "=== SITUAÇÃO DO CONVÊNIO ===\n" +
+                                                   "Limite Aprovado: R$ " + limite.ToString("N2") + "\n" +
+                                                   "Valor em Aberto (Devendo): R$ " + divida.ToString("N2") + "\n" +
+                                                   "Saldo Disponível: R$ " + disponivel.ToString("N2");
+
+                                MessageBox.Show(relatorio, "Dados do Convênio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Nenhum cliente foi encontrado com este CPF.", "Não Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao consultar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ==========================================
+        // BOTÃO LIMPAR CAMPOS (button3)
+        // ==========================================
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RestaurarTextosPadrao();
+        }
+    }
+}

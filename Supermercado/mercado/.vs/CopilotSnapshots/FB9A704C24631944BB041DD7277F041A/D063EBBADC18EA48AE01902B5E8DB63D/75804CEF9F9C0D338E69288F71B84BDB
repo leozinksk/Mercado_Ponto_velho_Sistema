@@ -1,0 +1,488 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
+namespace mercado
+{
+    public partial class FormCaixa : Form
+    {
+        private string connectionString = "Server=localhost;Database=mercadoleoisa;Uid=root;Pwd=";
+        private DataTable dtItens;
+
+        public FormCaixa()
+        {
+            InitializeComponent();
+            Inicializar();
+        }
+
+        private void Inicializar()
+        {
+            dtItens = new DataTable();
+            dtItens.Columns.Add("produto_id", typeof(int));
+            dtItens.Columns.Add("codigo", typeof(string));
+            dtItens.Columns.Add("descricao", typeof(string));
+            dtItens.Columns.Add("quantidade", typeof(int));
+            dtItens.Columns.Add("preco_unitario", typeof(decimal));
+            dtItens.Columns.Add("subtotal", typeof(decimal));
+
+            dgvItens.DataSource = dtItens;
+
+            dgvItens.Columns["preco_unitario"].DefaultCellStyle.Format = "N2";
+            dgvItens.Columns["subtotal"].DefaultCellStyle.Format = "N2";
+
+            cbFormaPagamento.Items.Clear();
+            cbFormaPagamento.Items.AddRange(new object[] { "Dinheiro", "Cartão Débito", "Cartão Crédito", "PIX", "Convênio" });
+            cbFormaPagamento.SelectedIndex = 0;
+
+            txtCpfConvenio.Enabled = false;
+            txtSenhaConvenio.Enabled = false;
+            txtSenhaConvenio.PasswordChar = '*';
+
+            btnAdicionar.Click += btnAdicionar_Click;
+            btnRemover.Click += btnRemover_Click;
+            btnFinalizar.Click += btnFinalizar_Click;
+            btnCancelar.Click += btnCancelar_Click;
+            cbFormaPagamento.SelectedIndexChanged += CbFormaPagamento_SelectedIndexChanged;
+
+            txtCodigo.KeyDown += TxtCodigo_KeyDown;
+        }
+
+        private void TxtCodigo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnAdicionar.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void CbFormaPagamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool convenio = cbFormaPagamento.SelectedItem?.ToString() == "Convênio";
+            txtCpfConvenio.Enabled = convenio;
+            txtSenhaConvenio.Enabled = convenio;
+
+            if (convenio)
+            {
+                txtCpfConvenio.Focus();
+            }
+            else if (cbFormaPagamento.SelectedItem?.ToString() == "Dinheiro")
+            {
+                // Devolve o foco para o campo principal para digitar o valor entregue
+                txtCodigo.Focus();
+            }
+        }
+
+        // ========================================================
+        // ADICIONAR PRODUTO À LISTA
+        // ========================================================
+        private void btnAdicionar_Click(object sender, EventArgs e)
+        {
+            lblStatus.Text = string.Empty;
+            string codigo = txtCodigo.Text.Trim();
+            if (string.IsNullOrEmpty(codigo))
+            {
+                lblStatus.Text = "Informe o código ou ID do produto.";
+                return;
+            }
+
+            int quantidade = 1;
+            if (!int.TryParse(txtQuantidade.Text.Trim(), out quantidade) || quantidade <= 0)
+            {
+                lblStatus.Text = "Quantidade inválida.";
+                return;
+            }
+
+            try
+            {
+                using (var conn = new MySqlConnection(connectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+
+                    // Procura na coluna id, na coluna codigo ou pelo nome do produto
+                    cmd.CommandText = "SELECT id, codigo, nome, valor, quantidade FROM produtos " +
+                                     "WHERE id = @cod OR codigo = @cod OR nome LIKE @likeCod LIMIT 1";
+                    cmd.Parameters.AddWithValue("@cod", codigo);
+                    cmd.Parameters.AddWithValue("@likeCod", "%" + codigo + "%");
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.Read())
+                        {
+                            lblStatus.Text = "Produto não encontrado.";
+                            return;
+                        }
+
+                        int produtoId = reader.GetInt32("id");
+                        string codigoProd = reader["codigo"].ToString();
+                        string descricao = reader["nome"].ToString();
+                        decimal preco = reader.IsDBNull(reader.GetOrdinal("valor")) ? 0m : reader.GetDecimal("valor");
+                        int estoque = reader.IsDBNull(reader.GetOrdinal("quantidade")) ? 0 : reader.GetInt32("quantidade");
+
+                        if (estoque < quantidade)
+                        {
+                            lblStatus.Text = $"Estoque insuficiente (disponível: {estoque}).";
+                            return;
+                        }
+
+                        var existente = dtItens.AsEnumerable().FirstOrDefault(r => r.Field<int>("produto_id") == produtoId);
+                        if (existente != null)
+                        {
+                            int atual = existente.Field<int>("quantidade");
+                            int novo = atual + quantidade;
+                            if (novo > estoque)
+                            {
+                                lblStatus.Text = $"Estoque insuficiente para total solicitado (disponível: {estoque}).";
+                                return;
+                            }
+                            existente.SetField("quantidade", novo);
+                            existente.SetField("subtotal", Math.Round(preco * novo, 2));
+                        }
+                        else
+                        {
+                            var row = dtItens.NewRow();
+                            row["produto_id"] = produtoId;
+                            row["codigo"] = codigoProd;
+                            row["descricao"] = descricao;
+                            row["quantidade"] = quantidade;
+                            row["preco_unitario"] = preco;
+                            row["subtotal"] = Math.Round(preco * quantidade, 2);
+                            dtItens.Rows.Add(row);
+                        }
+
+                        AtualizarTotal();
+                        txtCodigo.Text = string.Empty;
+                        txtQuantidade.Text = "1";
+                        txtCodigo.Focus();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao adicionar item: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRemover_Click(object sender, EventArgs e)
+        {
+            lblStatus.Text = string.Empty;
+            if (dgvItens.CurrentRow == null)
+            {
+                lblStatus.Text = "Selecione um item para remover.";
+                return;
+            }
+            try
+            {
+                int produtoId = Convert.ToInt32(dgvItens.CurrentRow.Cells["produto_id"].Value);
+                var row = dtItens.AsEnumerable().FirstOrDefault(r => r.Field<int>("produto_id") == produtoId);
+                if (row != null)
+                {
+                    dtItens.Rows.Remove(row);
+                    AtualizarTotal();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao remover item: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AtualizarTotal()
+        {
+            decimal total = 0m;
+            foreach (DataRow r in dtItens.Rows)
+                total += r.Field<decimal>("subtotal");
+
+            lblTotal.Text = total.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"));
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Deseja cancelar a venda atual?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                dtItens.Clear();
+                AtualizarTotal();
+                txtCodigo.Text = string.Empty;
+                txtQuantidade.Text = "1";
+                txtCpfConvenio.Text = string.Empty;
+                txtSenhaConvenio.Text = string.Empty;
+                lblStatus.Text = "Venda cancelada.";
+            }
+        }
+
+        // ========================================================
+        // FINALIZAR VENDA (COM CÁLCULO DE TROCO DIRETO EM txtCodigo)
+        // ========================================================
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            lblStatus.Text = string.Empty;
+            if (dtItens.Rows.Count == 0)
+            {
+                lblStatus.Text = "Nenhum item na venda.";
+                return;
+            }
+
+            decimal total = dtItens.AsEnumerable().Sum(r => r.Field<decimal>("subtotal"));
+            string forma = cbFormaPagamento.SelectedItem?.ToString() ?? "Dinheiro";
+            string cpfConvenio = txtCpfConvenio.Text.Trim().Replace(".", "").Replace("-", "").Replace(" ", "");
+            decimal troco = 0.00m;
+
+            // 1. SE FOR DINHEIRO: CALCULA O TROCO COM O VALOR DIGITADO EM txtCodigo
+            if (forma == "Dinheiro")
+            {
+                string valorDigitado = txtCodigo.Text.Trim().Replace(".", ",");
+
+                if (string.IsNullOrEmpty(valorDigitado) || !decimal.TryParse(valorDigitado, out decimal valorRecebido))
+                {
+                    MessageBox.Show("Digite o valor recebido em dinheiro no campo de código/valor antes de finalizar!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCodigo.Focus();
+                    return;
+                }
+
+                if (valorRecebido < total)
+                {
+                    decimal faltante = total - valorRecebido;
+                    MessageBox.Show($"Valor entregue insuficiente!\n\nTotal da Venda: R$ {total:N2}\nValor Entregue: R$ {valorRecebido:N2}\nFaltam: R$ {faltante:N2}", "Valor Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCodigo.Focus();
+                    return;
+                }
+
+                troco = valorRecebido - total;
+            }
+
+            // 2. SE FOR CONVÉNIO: VALIDAÇÃO DE CONVÉNIO
+            if (forma == "Convênio")
+            {
+                if (string.IsNullOrEmpty(cpfConvenio) || string.IsNullOrEmpty(txtSenhaConvenio.Text.Trim()))
+                {
+                    lblStatus.Text = "Informe o CPF e a senha do convénio.";
+                    return;
+                }
+
+                try
+                {
+                    using (var conn = new MySqlConnection(connectionString))
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        conn.Open();
+                        cmd.CommandText = "SELECT cpf, senha, ativo, limite_credito, saldo_devedor FROM clientes WHERE cpf = @cpf LIMIT 1";
+                        cmd.Parameters.AddWithValue("@cpf", cpfConvenio);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (!reader.Read())
+                            {
+                                lblStatus.Text = "Cliente de convénio não encontrado.";
+                                return;
+                            }
+                            bool ativo = !reader.IsDBNull(reader.GetOrdinal("ativo")) && reader.GetInt32("ativo") == 1;
+                            if (!ativo)
+                            {
+                                lblStatus.Text = "Conta de convénio inativa.";
+                                return;
+                            }
+                            string senhaDb = reader.IsDBNull(reader.GetOrdinal("senha")) ? string.Empty : reader.GetString("senha");
+                            if (senhaDb != txtSenhaConvenio.Text.Trim())
+                            {
+                                lblStatus.Text = "Senha do convénio inválida.";
+                                return;
+                            }
+                            decimal limite = reader.IsDBNull(reader.GetOrdinal("limite_credito")) ? 0m : reader.GetDecimal("limite_credito");
+                            decimal saldo = reader.IsDBNull(reader.GetOrdinal("saldo_devedor")) ? 0m : reader.GetDecimal("saldo_devedor");
+                            if ((limite - saldo) < total)
+                            {
+                                lblStatus.Text = $"Limite insuficiente (Disponível: R$ {(limite - saldo):N2}).";
+                                return;
+                            }
+                        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            // Tenta localizar instância existente do Form1 e exibi-la; se não, cria nova
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f is Form1)
+                {
+                    f.Show();
+                    this.Close();
+                    return;
+                }
+            }
+
+            new Form1().Show();
+            this.Close();
+        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao validar convénio: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            // 3. TRANSAÇÃO MYSQL
+            try
+            {
+                using (var conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (var trans = conn.BeginTransaction())
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.Transaction = trans;
+
+                        cmd.CommandText = "INSERT INTO vendas (data_venda, total, forma_pagamento, cliente_cpf) VALUES (NOW(), @total, @forma, @cpf)";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@total", total);
+                        cmd.Parameters.AddWithValue("@forma", forma);
+                        cmd.Parameters.AddWithValue("@cpf", string.IsNullOrEmpty(cpfConvenio) ? (object)DBNull.Value : cpfConvenio);
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "SELECT LAST_INSERT_ID()";
+                        cmd.Parameters.Clear();
+                        long vendaId = Convert.ToInt64(cmd.ExecuteScalar());
+
+                        foreach (DataRow r in dtItens.Rows)
+                        {
+                            int produtoId = r.Field<int>("produto_id");
+                            int qtd = r.Field<int>("quantidade");
+                            decimal preco = r.Field<decimal>("preco_unitario");
+                            decimal subtotal = r.Field<decimal>("subtotal");
+
+                            cmd.CommandText = "SELECT quantidade FROM produtos WHERE id = @pid FOR UPDATE";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@pid", produtoId);
+                            object obj = cmd.ExecuteScalar();
+                            if (obj == null)
+                            {
+                                trans.Rollback();
+                                MessageBox.Show($"Produto ID {produtoId} não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            int estoqueAtual = Convert.ToInt32(obj);
+                            if (estoqueAtual < qtd)
+                            {
+                                trans.Rollback();
+                                MessageBox.Show($"Stock insuficiente para o item ID {produtoId} (disponível: {estoqueAtual}).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            cmd.CommandText = "INSERT INTO itens_venda (venda_id, produto_id, quantidade, preco_unitario, subtotal) VALUES (@venda, @produto, @qtd, @preco, @sub)";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@venda", vendaId);
+                            cmd.Parameters.AddWithValue("@produto", produtoId);
+                            cmd.Parameters.AddWithValue("@qtd", qtd);
+                            cmd.Parameters.AddWithValue("@preco", preco);
+                            cmd.Parameters.AddWithValue("@sub", subtotal);
+                            cmd.ExecuteNonQuery();
+
+                            cmd.CommandText = "UPDATE produtos SET quantidade = quantidade - @qtd WHERE id = @produto";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@qtd", qtd);
+                            cmd.Parameters.AddWithValue("@produto", produtoId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        if (forma == "Convênio" && !string.IsNullOrEmpty(cpfConvenio))
+                        {
+                            cmd.CommandText = "UPDATE clientes SET saldo_devedor = saldo_devedor + @valor WHERE cpf = @cpf";
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@valor", total);
+                            cmd.Parameters.AddWithValue("@cpf", cpfConvenio);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        trans.Commit();
+
+                        // Gera o comprovativo em Excel
+                        GerarCupomCsv(vendaId, total, forma, cpfConvenio, troco);
+
+                        // Mensagem de sucesso destacando o troco se foi em dinheiro
+                        if (forma == "Dinheiro")
+                        {
+                            MessageBox.Show($"Venda #{vendaId} finalizada com sucesso!\n\nTotal: R$ {total:N2}\nTroco a devolver: R$ {troco:N2}", "Troco Calculado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Venda #{vendaId} concluída com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                        // Limpa os campos para a próxima venda
+                        dtItens.Clear();
+                        AtualizarTotal();
+                        txtCodigo.Text = string.Empty;
+                        txtQuantidade.Text = "1";
+                        txtCpfConvenio.Text = string.Empty;
+                        txtSenhaConvenio.Text = string.Empty;
+                        cbFormaPagamento.SelectedIndex = 0;
+                        txtCodigo.Focus();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao finalizar venda: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ========================================================
+        // CRIAÇÃO E ABERTURA AUTOMÁTICA DO COMPROVATIVO NO EXCEL
+        // ========================================================
+        private void GerarCupomCsv(long vendaId, decimal total, string forma, string cpf, decimal troco)
+        {
+            try
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine("MERCADO LEO & ISA - CUPOM NÃO FISCAL;");
+                sb.AppendLine($"Venda Nº:;{vendaId}");
+                sb.AppendLine($"Data / Hora:;{DateTime.Now:dd/MM/yyyy HH:mm:ss}");
+                sb.AppendLine($"Forma de Pagamento:;{forma}");
+                if (!string.IsNullOrEmpty(cpf))
+                {
+                    sb.AppendLine($"Cliente Convénio:;CPF {cpf}");
+                }
+                sb.AppendLine(";");
+                sb.AppendLine("CÓDIGO;DESCRIÇÃO;QTD;PREÇO UNIT.;SUBTOTAL");
+
+                foreach (DataRow r in dtItens.Rows)
+                {
+                    string codigo = r.Field<string>("codigo");
+                    string desc = r.Field<string>("descricao");
+                    int qtd = r.Field<int>("quantidade");
+                    decimal preco = r.Field<decimal>("preco_unitario");
+                    decimal sub = r.Field<decimal>("subtotal");
+                    sb.AppendLine($"{codigo};{desc};{qtd};{preco:N2};{sub:N2}");
+                }
+
+                sb.AppendLine(";");
+                sb.AppendLine($";;TOTAL A PAGAR:;R$;{total:N2}");
+                if (forma == "Dinheiro")
+                {
+                    sb.AppendLine($";;TROCO DEVOLVIDO:;R$;{troco:N2}");
+                }
+                sb.AppendLine(";");
+                sb.AppendLine("OBRIGADO PELA PREFERÊNCIA!;");
+
+                string fileName = Path.Combine(Path.GetTempPath(), $"Cupom_Venda_{vendaId}_{DateTime.Now:yyyyMMddHHmmss}.csv");
+                File.WriteAllText(fileName, sb.ToString(), Encoding.GetEncoding("iso-8859-1"));
+
+                Process.Start(new ProcessStartInfo(fileName) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Venda registada, mas ocorreu uma falha ao abrir o Excel: " + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+    }
+}

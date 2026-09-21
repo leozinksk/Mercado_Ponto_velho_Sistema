@@ -1,0 +1,152 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace mercado
+{
+    public partial class FormRepositor : Form
+    {
+        // Ajuste a connection string conforme seu banco
+        private string connectionString = "Server=localhost;Database=mercadoleoisa;Uid=root;Pwd=";
+
+        public FormRepositor()
+        {
+            InitializeComponent();
+            Load += FormRepositor_Load;
+        }
+
+        private void FormRepositor_Load(object sender, EventArgs e)
+        {
+            LoadProducts();
+        }
+
+        private void LoadProducts()
+        {
+            try
+            {
+                using (var conn = new MySql.Data.MySqlClient.MySqlConnection(connectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    cmd.CommandText = "SELECT id, nome, descricao, preco, quantidade FROM products";
+                    var adapter = new MySql.Data.MySqlClient.MySqlDataAdapter(cmd);
+                    var dt = new System.Data.DataTable();
+                    adapter.Fill(dt);
+                    dgvProdutos.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar produtos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvProdutos_CellDoubleClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dgvProdutos.Rows[e.RowIndex];
+            txtId.Text = row.Cells["id"].Value?.ToString();
+            txtNome.Text = row.Cells["nome"].Value?.ToString();
+            txtDescricao.Text = row.Cells["descricao"].Value?.ToString();
+            txtPreco.Text = row.Cells["preco"].Value?.ToString();
+            txtQuantidade.Text = row.Cells["quantidade"].Value?.ToString();
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var conn = new MySql.Data.MySqlClient.MySqlConnection(connectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    int id = 0;
+                    int.TryParse(txtId.Text, out id);
+                    if (id <= 0)
+                    {
+                        cmd.CommandText = "INSERT INTO products (nome, descricao, preco, quantidade) VALUES (@nome, @descricao, @preco, @quantidade)";
+                    }
+                    else
+                    {
+                        cmd.CommandText = "UPDATE products SET nome=@nome, descricao=@descricao, preco=@preco, quantidade=@quantidade WHERE id=@id";
+                        cmd.Parameters.AddWithValue("@id", id);
+                    }
+
+                    cmd.Parameters.AddWithValue("@nome", txtNome.Text.Trim());
+                    cmd.Parameters.AddWithValue("@descricao", txtDescricao.Text.Trim());
+                    decimal preco = 0;
+                    decimal.TryParse(txtPreco.Text, out preco);
+                    cmd.Parameters.AddWithValue("@preco", preco);
+                    int qtd = 0;
+                    int.TryParse(txtQuantidade.Text, out qtd);
+                    cmd.Parameters.AddWithValue("@quantidade", qtd);
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Produto salvo com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadProducts();
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao salvar produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("Selecione um produto para excluir.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (MessageBox.Show("Confirma exclusão do produto?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            try
+            {
+                using (var conn = new MySql.Data.MySqlClient.MySqlConnection(connectionString))
+                using (var cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    cmd.CommandText = "DELETE FROM products WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@id", int.Parse(txtId.Text));
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0) MessageBox.Show("Produto excluído.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadProducts();
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao excluir produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            LoadProducts();
+        }
+
+        private void ClearForm()
+        {
+            txtId.Text = "";
+            txtNome.Text = "";
+            txtDescricao.Text = "";
+            txtPreco.Text = "";
+            txtQuantidade.Text = "";
+        }
+    }
+}

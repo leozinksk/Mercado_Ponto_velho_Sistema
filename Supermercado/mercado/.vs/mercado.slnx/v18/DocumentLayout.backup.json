@@ -1,0 +1,287 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\formgerente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formgerente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formsac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formsac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formsac.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formsac.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formrepositor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formrepositor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formrepositor.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formrepositor.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formcaixa.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formcaixa.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formgerente.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formgerente.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formhort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formhort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formcaixa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formcaixa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\formhort.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formhort.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\formsac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formsac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\formrepositor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formrepositor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|c:\\users\\pichau\\desktop\\supermercado\\supermercado\\mercado\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\formgerente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formgerente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\formhort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B6BCC6E2-CB5B-4380-BC31-F7430407397A}|mercado.csproj|solutionrelative:formhort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormSac.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormSac.cs",
+              "RelativeDocumentMoniker": "FormSac.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormSac.cs",
+              "RelativeToolTip": "FormSac.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAowNQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T05:04:25.882Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FormRepositor.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormRepositor.Designer.cs",
+              "RelativeDocumentMoniker": "FormRepositor.Designer.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormRepositor.Designer.cs",
+              "RelativeToolTip": "FormRepositor.Designer.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAswHQAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T04:41:41.182Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FormRepositor.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormRepositor.cs",
+              "RelativeDocumentMoniker": "FormRepositor.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormRepositor.cs",
+              "RelativeToolTip": "FormRepositor.cs",
+              "ViewState": "AgIAAEgBAAAAAAAAAAAawFwBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T04:30:46.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormSac.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormSac.Designer.cs",
+              "RelativeDocumentMoniker": "FormSac.Designer.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormSac.Designer.cs",
+              "RelativeToolTip": "FormSac.Designer.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAWwGoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T04:53:52.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FormGerente.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormGerente.cs",
+              "RelativeDocumentMoniker": "FormGerente.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormGerente.cs",
+              "RelativeToolTip": "FormGerente.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAIwFcAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:07:00.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FormCaixa.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormCaixa.Designer.cs",
+              "RelativeDocumentMoniker": "FormCaixa.Designer.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormCaixa.Designer.cs",
+              "RelativeToolTip": "FormCaixa.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T06:04:57.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FormGerente.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormGerente.Designer.cs",
+              "RelativeDocumentMoniker": "FormGerente.Designer.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormGerente.Designer.cs",
+              "RelativeToolTip": "FormGerente.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T05:56:32.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FormHort.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormHort.cs",
+              "RelativeDocumentMoniker": "FormHort.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormHort.cs",
+              "RelativeToolTip": "FormHort.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T05:56:51.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FormCaixa.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormCaixa.cs",
+              "RelativeDocumentMoniker": "FormCaixa.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormCaixa.cs",
+              "RelativeToolTip": "FormCaixa.cs",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAowM4BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T06:03:54.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FormHort.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormHort.Designer.cs",
+              "RelativeDocumentMoniker": "FormHort.Designer.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormHort.Designer.cs",
+              "RelativeToolTip": "FormHort.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAApwNQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-21T05:56:46.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "FormHort.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormHort.cs",
+              "RelativeDocumentMoniker": "FormHort.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormHort.cs [Design]",
+              "RelativeToolTip": "FormHort.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:18:38.197Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FormSac.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormSac.cs",
+              "RelativeDocumentMoniker": "FormSac.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormSac.cs [Design]",
+              "RelativeToolTip": "FormSac.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:19:25.83Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "FormRepositor.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormRepositor.cs",
+              "RelativeDocumentMoniker": "FormRepositor.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormRepositor.cs [Design]",
+              "RelativeToolTip": "FormRepositor.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T15:18:58.077Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FormGerente.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormGerente.cs",
+              "RelativeDocumentMoniker": "FormGerente.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\FormGerente.cs [Design]",
+              "RelativeToolTip": "FormGerente.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T14:59:27.784Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAkwH8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-18T14:51:50.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Pichau\\Desktop\\Supermercado\\Supermercado\\mercado\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\internet.info\\Desktop\\Supermercado\\mercado\\Form1.cs [Design]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\internet.info\\Desktop\\Supermercado\\mercado\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-11T15:07:28.93Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
