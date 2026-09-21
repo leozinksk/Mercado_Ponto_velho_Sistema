@@ -1,0 +1,26 @@
+Requisitos Funcionais:
+
+- Cadastro e gerenciamento de usuários e funcionários.
+- Tela de login com autenticação por usuário e senha. OK
+- Cadastro e atualização de produtos no estoque.
+- Registro de entrada de produtos no estoque.
+- Registro de saída de produtos do estoque.
+- Sistema de Caixa (PDV) para registro de vendas.
+- Seleção de forma de pagamento e emissão de comprovante.
+- Cadastro de clientes no programa de convênio.
+- Sistema de SAC (Serviço de Atendimento ao Cliente).
+- Consulta de produtos cadastrados e saldo do estoque.
+- Controle de níveis de acesso por perfil (Cliente, Caixa, Estoquista, SAC e Gerente).
+- Geração de relatórios de vendas e de estoque.
+
+
+Requisitos Não Funcionais:
+
+- Desenvolvido na linguagem C#.
+- Uso do banco de dados MySQL para armazenar os dados.
+- Compatível com o sistema operacional Windows.
+- Tempo de resposta das operações inferior a 5 segundos.
+- Segurança no acesso com autenticação por perfil.
+- Atualização automática do estoque após cada venda.
+- Mensagens de erro claras e diretas para o usuário.
+- Código organizado e comentado para facilitar a manutenção.

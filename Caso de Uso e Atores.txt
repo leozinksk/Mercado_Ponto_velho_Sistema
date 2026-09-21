@@ -1,0 +1,36 @@
+Atores do Sistema:
+
+Cliente: Acessa o sistema para consultar os produtos disponíveis, cadastrar-se no programa de convênio e enviar dúvidas, sugestões ou reclamações.
+
+Caixa: Responsável por registrar a venda dos produtos, selecionar a forma de pagamento e emitir o comprovante ao cliente.
+
+Estoquista: Responsável pelo controle de mercadorias, realizando o cadastro de produtos, registro de entrada e saída de itens no estoque e consulta de saldos.
+
+Gerente: Possui acesso total ao sistema, sendo responsável por cadastrar e gerenciar funcionários, definir níveis de acesso e acompanhar os relatórios de vendas e estoque.
+
+Atendente do SAC: Responsável por visualizar as mensagens dos clientes, consultar o status das compras, responder a chamados e gerar cupons de troca.
+
+
+
+Diagrama de Caso de Uso:
+
+SAC: 
+Visualiza as reclamações e mensagens dos clientes.
+Consulta o status de compras realizadas.
+Gera cupons de troca ou desconto para clientes.
+
+Caixa:
+Registra a venda dos produtos (inclui a leitura dos itens, cálculo do total, recebimento do pagamento e emissão do comprovante).
+
+Estoquista: 
+Dá entrada de novos produtos no estoque.
+Consulta o saldo dos produtos no estoque.
+
+Cliente:
+Cadastra no convênio.
+Envia mensagem com dúvida, sugestão ou reclamação.
+
+Gerente
+Cadastra novos funcionários e define seus níveis de acesso.
+Consulta relatórios de vendas e de estoque.
+Acessa e realiza todas as funções de Caixa, Estoquista e SAC no sistema.
